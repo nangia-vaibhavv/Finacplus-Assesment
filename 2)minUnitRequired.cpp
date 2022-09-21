@@ -23,6 +23,21 @@ using namespace std;
         if(ans>1e8)return -1;
         else return ans;
     }
+
+    // MEMOIZATION FUNCTION
+    //  int solve(int ind, int target, vector<int>&coins, vector<vector<int>>&dp)
+    // {
+    //     if(ind==0)
+    //     {
+    //         if(target%coins[0]==0)return target/coins[0];
+    //         return 1e9;
+    //     }
+    //     if(dp[ind][target]!=-1) return dp[ind][target];
+    //     int nottake=solve(ind-1,target,coins,dp);
+    //     int take=INT_MAX;
+    //     if(coins[ind]<=target)take=1+solve(ind,target-coins[ind],coins,dp);
+    //     return dp[ind][target]= min(take,nottake);
+    // }
     int main(){
         int n;
         cin>>n;
