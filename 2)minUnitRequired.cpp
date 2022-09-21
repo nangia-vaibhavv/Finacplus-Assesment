@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-    int coinChange(vector<int>& coins, int amount) {
-        int n=coins.size();
+    int unitsRequired(vector<int>& units, int amount) {
+        int n=units.size();
         vector<vector<int>>dp(n,vector<int>(amount+1,-1));
         for(int target=0;target<=amount;target++)
         {
-            if(target%coins[0]==0)dp[0][target]=target/coins[0];
+            if(target%units[0]==0)dp[0][target]=target/units[0];
             else dp[0][target]=1e9;
         }
         for(int ind=1;ind<n;ind++)
@@ -15,7 +15,7 @@ using namespace std;
             {
                 int nottake=dp[ind-1][target];
         int take=INT_MAX;
-        if(coins[ind]<=target)take=1+dp[ind][target-coins[ind]];
+        if(units[ind]<=target)take=1+dp[ind][target-units[ind]];
                 dp[ind][target]=min(take,nottake);
             }
         }
@@ -30,6 +30,6 @@ using namespace std;
         for(int i=0;i<n;i++)cin>>arr[i];
         int amount;
         cin>>amount;
-        cout<<coinChange(arr,amount);
+        cout<<unitsRequired(arr,amount);
         return 0;
     }
