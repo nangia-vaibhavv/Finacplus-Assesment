@@ -1,50 +1,80 @@
-#include<bits/stdc++.h>
+
+
+// using greedy therefore sorting
+#include <bits/stdc++.h>
 using namespace std;
 
-    int unitsRequired(vector<int>& units, int amount) {
-        int n=units.size();
-        vector<vector<int>>dp(n,vector<int>(amount+1,-1));
-        for(int target=0;target<=amount;target++)
+void unitsRequired(int n, int arr[], int target)
+{
+    sort(arr, arr + n);
+    vector<int> ans;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        while (target >= arr[i])
         {
-            if(target%units[0]==0)dp[0][target]=target/units[0];
-            else dp[0][target]=1e9;
+            target -= arr[i];
+            ans.push_back(arr[i]);
         }
-        for(int ind=1;ind<n;ind++)
-        {
-            for(int target=0;target<=amount;target++)
-            {
-                int nottake=dp[ind-1][target];
-        int take=INT_MAX;
-        if(units[ind]<=target)take=1+dp[ind][target-units[ind]];
-                dp[ind][target]=min(take,nottake);
-            }
-        }
-        int ans=dp[n-1][amount];
-        if(ans>1e8)return -1;
-        else return ans;
     }
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout << ans[i] << " ";
+    }
+    cout << endl;
+    cout << "Units required=" << ans.size() << endl;
+}
+int main()
+{
+    int n;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    int target;
+    cin >> target;
+    unitsRequired(n, arr, target);
+    return 0;
+}
 
-    // MEMOIZATION FUNCTION
-    //  int solve(int ind, int target, vector<int>&coins, vector<vector<int>>&dp)
-    // {
-    //     if(ind==0)
-    //     {
-    //         if(target%coins[0]==0)return target/coins[0];
-    //         return 1e9;
-    //     }
-    //     if(dp[ind][target]!=-1) return dp[ind][target];
-    //     int nottake=solve(ind-1,target,coins,dp);
-    //     int take=INT_MAX;
-    //     if(coins[ind]<=target)take=1+solve(ind,target-coins[ind],coins,dp);
-    //     return dp[ind][target]= min(take,nottake);
-    // }
-    int main(){
-        int n;
-        cin>>n;
-        vector<int>arr(n);
-        for(int i=0;i<n;i++)cin>>arr[i];
-        int amount;
-        cin>>amount;
-        cout<<unitsRequired(arr,amount);
-        return 0;
-    }
+
+
+
+// memoization approach
+
+// #include<bits/stdc++.h>
+// using namespace std;
+//     int unitsRequired(int ind,vector<int>&nums,int target){
+//         if(ind==0){
+//             if(target%nums[0]==0)return target/nums[0];
+//             return 1e9;
+//         }
+//         int notTake=0+unitsRequired(ind-1,nums,target);
+//         int take=INT_MAX;
+//         if(nums[ind]<=target){
+//             take=1+unitsRequired(ind,nums,target-nums[ind]);
+//         }
+//         int ans= min(take,notTake);
+//         if(ans>=1e9)return -1;
+//         return ans;
+//     }
+
+ 
+//     int main(){
+//         int n;
+//         cin>>n;
+//         vector<int>arr(n);
+//         vector<int>res;
+
+//         for(int i=0;i<n;i++)cin>>arr[i];
+//         int amount;
+//         cin>>amount;
+//         cout<<unitsRequired(n,arr,amount)<<endl;
+//         return 0;
+//     }
+
+
+
+
+
